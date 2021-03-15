@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ChartController;
+use App\Http\Controllers\ChartDataController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +21,10 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::apiResource('users', UserController::class);
 
     Route::apiResource('configs', ConfigController::class)->only(['show', 'update']);
+
+    Route::apiResource('charts', ChartController::class);
+
+    Route::apiResource('charts.chart-datas', ChartDataController::class)->shallow();
 });
 
 

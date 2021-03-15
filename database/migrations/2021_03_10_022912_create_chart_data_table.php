@@ -15,9 +15,10 @@ class CreateChartDataTable extends Migration
     {
         Schema::create('chart_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('chart_id');
+            $table->foreignId('chart_id')->constrained()->cascadeOnDelete();
             $table->string('x_value');
             $table->string('y_value');
+            $table->char('color', 7);
             $table->timestamps();
         });
     }

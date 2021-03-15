@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Chart::create([
-            'name' => 'product_KPI',
+            'name' => 'KPI Productos',
             'type' => 'bar'
         ]);
     }

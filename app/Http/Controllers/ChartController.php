@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Chart\StoreChartRequest;
+use App\Http\Requests\Chart\UpdateChartRequest;
+use App\Http\Resources\ChartResource;
 use App\Models\Chart;
-use Illuminate\Http\Request;
 
 class ChartController extends Controller
 {
@@ -14,7 +16,7 @@ class ChartController extends Controller
      */
     public function index()
     {
-        //
+        return ChartResource::collection(Chart::all());
     }
 
     /**
@@ -23,9 +25,11 @@ class ChartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreChartRequest $request)
     {
-        //
+        $chart = Chart::create($request->all());
+
+        return new ChartResource($chart);
     }
 
     /**
@@ -36,7 +40,7 @@ class ChartController extends Controller
      */
     public function show(Chart $chart)
     {
-        //
+        return new ChartResource($chart);
     }
 
     /**
@@ -46,9 +50,11 @@ class ChartController extends Controller
      * @param  \App\Models\Chart  $chart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chart $chart)
+    public function update(UpdateChartRequest $request, Chart $chart)
     {
-        //
+        $chart->update($request->all());
+
+        return new ChartResource($chart);
     }
 
     /**
@@ -59,6 +65,8 @@ class ChartController extends Controller
      */
     public function destroy(Chart $chart)
     {
-        //
+        $chart->delete();
+
+        return response('', 205);
     }
 }
