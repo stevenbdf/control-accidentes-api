@@ -27,17 +27,27 @@ class FilesController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-        $client_name = $request->file('file')->getClientOriginalName();
+        if ($request->url) {
+            $name = basename($request->url);
 
-        $path = $request->file('file')->store('images');
+            $file = Files::create([
+                'name' => $name,
+                'path' => $request->url,
+                'content_type' => 'url'
+            ]);
+        } else {
+            $client_name = $request->file('file')->getClientOriginalName();
 
-        $content_type = mime_content_type(Storage::path($path));
+            $path = $request->file('file')->store('files');
 
-        $file = Files::create([
-            'name' => $client_name,
-            'path' => $path,
-            'content_type' => $content_type
-        ]);
+            $content_type = mime_content_type(Storage::path($path));
+
+            $file = Files::create([
+                'name' => $client_name,
+                'path' => $path,
+                'content_type' => $content_type
+            ]);
+        }
 
         return new FileResource($file);
     }

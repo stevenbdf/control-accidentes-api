@@ -24,7 +24,8 @@ class StoreFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => ['required', 'file', 'mimes:png,jpeg,jpg,mp4']
+            'file' => ['required_without:url', 'file', 'mimes:png,jpeg,jpg,mp4'],
+            'url' => ['required_without:file', 'url']
         ];
     }
 }
