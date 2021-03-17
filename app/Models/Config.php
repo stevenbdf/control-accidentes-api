@@ -10,4 +10,12 @@ class Config extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    /**
+     * Get the media of the config
+     */
+    public function media()
+    {
+        return $this->hasOne(Media::class);
+    }
 }

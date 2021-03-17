@@ -20,7 +20,8 @@ class ConfigSeeder extends Seeder
             'marquee_text' => 'Texto de prueba en marquesina',
             'display_main_info' => true,
             'display_media' => true,
-            'display_charts' => true
+            'display_charts' => true,
+            'media_id' => 1
         ]);
     }
 }

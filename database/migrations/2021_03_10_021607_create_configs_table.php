@@ -21,6 +21,7 @@ class CreateConfigsTable extends Migration
             $table->boolean('display_main_info');
             $table->boolean('display_media');
             $table->boolean('display_charts');
+            $table->foreignId('media_id')->constrained();
             $table->timestamps();
         });
     }
