@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChartData\StoreChartDataRequest;
+use App\Http\Requests\ChartData\UpdateChartDataRequest;
+use App\Http\Resources\ChartDataResource;
+use App\Models\Chart;
 use App\Models\ChartData;
-use Illuminate\Http\Request;
 
 class ChartDataController extends Controller
 {
@@ -12,9 +15,9 @@ class ChartDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Chart $chart)
     {
-        //
+        return ChartDataResource::collection($chart->chartData);
     }
 
     /**
@@ -23,9 +26,11 @@ class ChartDataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreChartDataRequest $request, Chart $chart)
     {
-        //
+        $chartData = $chart->chartData()->create($request->all());
+
+        return new ChartDataResource($chartData);
     }
 
     /**
@@ -36,7 +41,7 @@ class ChartDataController extends Controller
      */
     public function show(ChartData $chartData)
     {
-        //
+        return new ChartDataResource($chartData);
     }
 
     /**
@@ -46,9 +51,11 @@ class ChartDataController extends Controller
      * @param  \App\Models\ChartData  $chartData
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ChartData $chartData)
+    public function update(UpdateChartDataRequest $request, ChartData $chartData)
     {
-        //
+        $chartData->update($request->all());
+
+        return new ChartDataResource($chartData);
     }
 
     /**
@@ -59,6 +66,8 @@ class ChartDataController extends Controller
      */
     public function destroy(ChartData $chartData)
     {
-        //
+        $chartData->delete();
+
+        return response('', 205);
     }
 }

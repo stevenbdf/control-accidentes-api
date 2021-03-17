@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChartResource extends JsonResource
+class ChartDataResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,13 @@ class ChartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'type' => $this->type,
-            'chart_data' => $this->chartData,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'chart_id' => $this->chart_id,
+            'chart' => $this->chart,
+            'x_value' => $this->x_value,
+            'y_value' => $this->y_value,
+            'color' => $this->color,
+            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at
         ];
     }
 }

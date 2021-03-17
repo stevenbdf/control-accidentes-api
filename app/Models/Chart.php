@@ -10,4 +10,12 @@ class Chart extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    /**
+     * Get the chart data of the chart
+     */
+    public function chartData()
+    {
+        return $this->hasMany(ChartData::class);
+    }
 }
