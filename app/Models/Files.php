@@ -14,8 +14,8 @@ class Files extends Model
     /**
      * The medias that belong to the file.
      */
-    public function media()
+    public function medias()
     {
-        return $this->belongsToMany(Media::class, 'media_files', 'media_id', 'file_id');
+        return $this->belongsToMany(Media::class, 'media_files', 'file_id', 'media_id')->withTimestamps();
     }
 }

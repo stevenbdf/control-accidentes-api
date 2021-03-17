@@ -4,6 +4,7 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ChartDataController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::apiResource('charts.chart-datas', ChartDataController::class)->shallow();
 
     Route::apiResource('files', FilesController::class)->except(['show', 'update']);
+
+    Route::put('media/{media}/attach', [MediaController::class, 'attach']);
 });
 
 
