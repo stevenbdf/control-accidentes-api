@@ -16,6 +16,6 @@ class Config extends Model
      */
     public function media()
     {
-        return $this->hasOne(Media::class);
+        return $this->belongsTo(Media::class);
     }
 }

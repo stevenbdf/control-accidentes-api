@@ -22,6 +22,8 @@ class ConfigResource extends JsonResource
             'display_main_info' => boolval($this->display_main_info),
             'display_media' => boolval($this->display_media),
             'display_charts' => boolval($this->display_charts),
+            'media_id' => $this->media_id,
+            'media' => new MediaResource($this->media),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

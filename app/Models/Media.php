@@ -12,10 +12,18 @@ class Media extends Model
     protected $guarded = [];
 
     /**
-     * Get the config for the media
+     * Get the config of the media
      */
     public function config()
     {
-        return $this->belongsTo(Config::class);
+        return $this->hasOne(Config::class);
+    }
+
+    /**
+     * The files that belong to the media.
+     */
+    public function files()
+    {
+        return $this->belongsToMany(Files::class, 'media_files', 'file_id', 'media_id');
     }
 }
