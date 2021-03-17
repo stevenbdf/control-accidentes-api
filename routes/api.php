@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ChartDataController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\FilesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,12 +21,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::apiResource('users', UserController::class);
 
-    Route::apiResource('configs', ConfigController::class)->only(['show', 'update']);
+    Route::apiResource('configs', ConfigController::class)->only(['update']);
 
-    Route::apiResource('charts', ChartController::class);
+    Route::apiResource('charts', ChartController::class)->except(['index']);
 
     Route::apiResource('charts.chart-datas', ChartDataController::class)->shallow();
+
+    Route::apiResource('files', FilesController::class)->except(['show', 'update']);
 });
 
 
 Route::post('login', [UserController::class, 'login']);
+
+Route::get('files/{file}', [FilesController::class, 'show']);
+
+Route::get('configs/{config}', [ConfigController::class, 'show']);
+
+Route::get('charts', [ChartController::class, 'index']);

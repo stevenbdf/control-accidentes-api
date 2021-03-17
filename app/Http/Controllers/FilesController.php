@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\File\StoreFileRequest;
+use App\Http\Resources\FileResource;
 use App\Models\Files;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilesController extends Controller
 {
@@ -14,7 +16,7 @@ class FilesController extends Controller
      */
     public function index()
     {
-        //
+        return FileResource::collection(Files::all());
     }
 
     /**
@@ -23,9 +25,21 @@ class FilesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFileRequest $request)
     {
-        //
+        $client_name = $request->file('file')->getClientOriginalName();
+
+        $path = $request->file('file')->store('images');
+
+        $content_type = mime_content_type(Storage::path($path));
+
+        $file = Files::create([
+            'name' => $client_name,
+            'path' => $path,
+            'content_type' => $content_type
+        ]);
+
+        return new FileResource($file);
     }
 
     /**
@@ -34,21 +48,11 @@ class FilesController extends Controller
      * @param  \App\Models\Files  $files
      * @return \Illuminate\Http\Response
      */
-    public function show(Files $files)
+    public function show(Files $file)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Files  $files
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Files $files)
-    {
-        //
+        return response(Storage::get($file->path), 200, [
+            'Content-Type' => $file->content_type
+        ]);
     }
 
     /**
@@ -57,8 +61,12 @@ class FilesController extends Controller
      * @param  \App\Models\Files  $files
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Files $files)
+    public function destroy(Files $file)
     {
-        //
+        Storage::delete($file->path);
+
+        $file->delete();
+
+        return response('', 205);
     }
 }
