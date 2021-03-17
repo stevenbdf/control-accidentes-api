@@ -29,7 +29,8 @@ class UpdateConfigRequest extends FormRequest
             'marquee_text' => ['sometimes', 'string'],
             'display_main_info' => ['sometimes', 'boolean'],
             'display_media' => ['sometimes', 'boolean'],
-            'display_charts' => ['sometimes', 'boolean']
+            'display_charts' => ['sometimes', 'boolean'],
+            'media_id' => ['sometimes', 'integer', 'exists:media,id']
         ];
     }
 }
