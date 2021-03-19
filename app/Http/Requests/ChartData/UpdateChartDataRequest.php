@@ -25,7 +25,7 @@ class UpdateChartDataRequest extends FormRequest
     {
         return [
             'x_value' => ['sometimes', 'string', 'max:255'],
-            'y_value' => ['sometimes', 'string', 'max:255'],
+            'y_value' => ['sometimes', 'numeric', 'max:255'],
             'color' => ['sometimes', 'string', 'size:7', 'regex:/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/']
         ];
     }
