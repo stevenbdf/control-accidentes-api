@@ -25,7 +25,7 @@ class StoreChartDataRequest extends FormRequest
     {
         return [
             'x_value' => ['required', 'string', 'max:255'],
-            'y_value' => ['required', 'numeric', 'max:255'],
+            'y_value' => ['required', 'numeric'],
             'color' => ['required', 'string', 'size:7', 'regex:/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/']
         ];
     }
