@@ -110,4 +110,9 @@ class UserController extends Controller
 
         return response('', 205);
     }
+
+    public function me()
+    {
+        return new UserResource(auth()->user());
+    }
 }

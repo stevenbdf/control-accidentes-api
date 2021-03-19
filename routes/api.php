@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('me', [UserController::class, 'me']);
+
     Route::apiResource('users', UserController::class);
 
     Route::apiResource('configs', ConfigController::class)->only(['update']);
@@ -32,7 +34,6 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
     Route::put('media/{media}/attach', [MediaController::class, 'attach']);
 });
-
 
 Route::post('login', [UserController::class, 'login']);
 
