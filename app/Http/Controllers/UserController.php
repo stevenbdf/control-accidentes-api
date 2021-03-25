@@ -44,7 +44,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::where('id', '!=', auth()->user()->id)->get());
+        return UserResource::collection(User::where('id', '!=', auth()->user()->id)
+            ->where('username', '!=', 'super_admin')->get());
     }
 
     /**
